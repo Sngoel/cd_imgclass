@@ -10,7 +10,6 @@ import pylab
 
 #Import Keras.
 from keras import initializers
-from keras.optimizers import 
 from keras.preprocessing.image import ImageDataGenerator
 from keras.models import Sequential, Model
 from keras.layers import Conv2D, MaxPooling2D, GlobalMaxPooling2D, Dense, Dropout, Input, Flatten, Activation
