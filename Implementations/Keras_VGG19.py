@@ -28,9 +28,6 @@ train = pd.read_json("Data/train.json")
 target_train = train['is_iceberg']
 test = pd.read_json("Data/test.json")
 
-from subprocess import check_output
-print(check_output(["ls", "Data/"]).decode("utf8"))
-
 #Generate the Train Data
 X_band_1 = np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in train["band_1"]])
 X_band_2 = np.array([np.array(band).astype(np.float32).reshape(75, 75) for band in train["band_2"]])
@@ -49,7 +46,7 @@ X_test = np.concatenate([X_band_test_1[:, :, :, np.newaxis]
 
 #VGG19 Model
 def getVggModel():
-	base_model = VGG16(weights = 'imagenet', include_top=False, 
+	base_model = VGG19(weights = 'imagenet', include_top=False, 
 						input_shape = X_train.shape[1:], classes=1)
 
 	x = base_model.get_layer('block5_pool').output
@@ -71,8 +68,10 @@ def getVggModel():
 
 #Base CV Structure
 def get_callbacks(filepath, patience = 2):
-	early_stop = EarlyStopping(monitor = 'val_loss', patience = 5, verbose = 1, mode = "min")
-	model_check = ModelCheckpoint(filepath, verbose = 1, save_best_only = True)
+	print('\n')
+	early_stop = EarlyStopping(monitor = 'val_loss', patience = 5, mode = "min")
+	print('\n')
+	model_check = ModelCheckpoint(filepath, save_best_only = True)
 	return [early_stop, model_check]
 
 #Using K-fold Cross Validation.
@@ -103,12 +102,14 @@ def myBaseCrossTrain(X_train, target_train):
 		galaxyModel.load_weights(filepath = file_path)
 
 		#Getting Training Score
-		score = galaxyModel.evaluate(X_train_cv, y_train_cv, verbose = 1)
+		print('\n')
+		score = galaxyModel.evaluate(X_train_cv, y_train_cv)
 		print('Train loss:', score[0])
 		print('Train accuracy:', score[1])
 
 		#Getting Test Score
-		score = galaxyModel.evaluate(X_holdout, Y_holdout, verbose = 1)
+		print('\n')
+		score = galaxyModel.evaluate(X_holdout, Y_holdout)
 		print('Test loss:', score[0])
 		print('Test accuracy:', score[1])
 
