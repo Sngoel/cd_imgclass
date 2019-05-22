@@ -90,7 +90,6 @@ def augment_data( generator, X1, X2, y, batch_size = 32 ):
 Train = 'Data/train.json'
 Test = 'Data/test.json'
 Weights = 'model_weights.hdf5'
-Prediction = 'preds.csv'
 
 Seed = np.random.randint(9999)
 Batch_Size = 32
@@ -151,4 +150,4 @@ print('Test accuracy: ', test_score[1])
 submission = pd.DataFrame()
 submission['id'] = test_data['id']
 submission['is_iceberg'] = test_predictions.reshape((test_predictions.shape[0]))
-submission.to_csv(Prediction, index = False)
+submission.to_csv('Predictions.csv', index = False)

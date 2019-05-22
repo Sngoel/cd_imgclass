@@ -98,6 +98,5 @@ frames = [ids, scores]
 preds = pd.concat(frames, axis=1)
 preds.columns = ['id', 'is_iceberg']
 
-
-preds.to_csv("preds.csv", sep=',', index=False)
 model.save("keras_cnn_1.h5")
+preds.to_csv('Predictions.csv', sep=',', index=False)

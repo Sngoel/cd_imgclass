@@ -130,4 +130,4 @@ preds = myBaseCrossTrain(X_train, target_train)
 submission = pd.DataFrame()
 submission['id'] = test['id']
 submission['is_iceberg'] = preds
-submission.to_csv('6_Predictions.csv', index=False)
+submission.to_csv('Predictions.csv', index=False)
