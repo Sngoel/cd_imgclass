@@ -1,4 +1,4 @@
-Statoil/C-CORE Iceberg Classifier Challenge<br />
+# Statoil/C-CORE Iceberg Classifier Challenge
 
 Team:	Icebreakers<br />
 Team Members:	Sanchit Goel & Vince Trost<br />
